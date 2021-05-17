@@ -28,6 +28,11 @@ def train(opt):
 
     opt.select_data = opt.select_data.split('-')
     opt.batch_ratio = opt.batch_ratio.split('-')
+    print("찍어보기")
+    print(opt,type(opt))
+    print("찍어보기 끝")
+#     Namespace(FT=False, FeatureExtraction='ResNet', PAD=False, Prediction='Attn', SequenceModeling='BiLSTM', Transformation='TPS', adam=False, baiduCTC=False, batch_max_length=25, batch_ratio=['1'], batch_size=192, beta1=0.9, character='0123456789abcdefghijklmnopqrstuvwxyz', data_filtering_off=False, eps=1e-08, exp_name='TPS-ResNet-BiLSTM-Attn-Seed1111', grad_clip=5, hidden_size=256, imgH=32, imgW=100, input_channel=1, lr=1, manualSeed=1111, num_fiducial=20, num_gpu=1, num_iter=300000, output_channel=512, rgb=False, rho=0.95, saved_model='', select_data=['ST'], sensitive=False, total_data_usage_ratio='1.0', train_data='/data/mrjaehong/data_set/imdb/data_lmdb_release', valInterval=1, valid_data='/data/mrjaehong/data_set/imdb/data_lmdb_release/validation', workers=4) <class 'argparse.Namespace'>
+
     train_dataset = Batch_Balanced_Dataset(opt)
 
     log = open(f'./saved_models/{opt.exp_name}/log_dataset.txt', 'a')
