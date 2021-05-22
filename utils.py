@@ -119,14 +119,19 @@ class AttnLabelConverter(object):
         input:
             text: text labels of each image. [batch_size]
             batch_max_length: max length of text label in the batch. 25 by default
-
+            
+            텍스트 : 각 이미지의 텍스트 레이블. [배치 _ 크기]
+             batch_max_length : 배치에서 텍스트 레이블의 최대 길이. 기본적으로 25
         output:
             text : the input of attention decoder. [batch_size x (max_length+2)] +1 for [GO] token and +1 for [s] token.
                 text[:, 0] is [GO] token and text is padded with [GO] token after [s] token.
             length : the length of output of attention decoder, which count [s] token also. [3, 7, ....] [batch_size]
+            
+            텍스트 :주의 디코더의 입력. [batch_size x (max_length + 2)] [GO] 토큰의 경우 +1, [s] 토큰의 경우 +1.
+                 text [:, 0]은 [GO] 토큰이고 텍스트는 [s] 토큰 뒤에 [GO] 토큰으로 채워집니다.
+             length : 어텐션 디코더의 출력 길이로 [s] 토큰도 계산합니다. [3, 7, ....] [배치 _ 크기]
         """
         length = [len(s) + 1 for s in text]  # +1 for [s] at end of sentence.
-        # batch_max_length = max(length) # this is not allowed for multi-gpu setting
         batch_max_length += 1
         # additional +1 for [GO] at first step. batch_text is padded with [GO] token after [s] token.
         batch_text = torch.LongTensor(len(text), batch_max_length + 1).fill_(0)
